@@ -14,10 +14,13 @@ function ProductsPage() {
   useEffect(() => {
     const getProducts = async () => {
       try {
+        setIsScreenLoading(true);
         const res = await axios.get(`${BASE_URL}/v2/api/${API_PATH}/products`);
         setProducts(res.data.products);
       } catch (error) {
         alert("取得產品失敗");
+      } finally {
+        setIsScreenLoading(false);
       }
     };
     getProducts();

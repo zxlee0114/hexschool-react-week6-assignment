@@ -15,17 +15,20 @@ function ProductDetailPage() {
   const [isBtnLoading, setIsBtnLoading] = useState(false);
 
   useEffect(() => {
-    const getProduct = async () => {
+    const getProduct = async (id) => {
       try {
+        setIsScreenLoading(true);
         const res = await axios.get(
-          `${BASE_URL}/v2/api/${API_PATH}/product/${product_id}`
+          `${BASE_URL}/v2/api/${API_PATH}/product/${id}`
         );
         setProduct(res.data.product);
       } catch (error) {
         alert("取得產品失敗");
+      } finally {
+        setIsScreenLoading(false);
       }
     };
-    getProduct();
+    getProduct(product_id);
   }, [product_id]);
 
   const addCartItem = async (product_id, qty) => {
